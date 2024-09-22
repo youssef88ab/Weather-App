@@ -1,0 +1,47 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="file.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="wheater">
+        <input type="search" name="" id="" placeholder="Search">
+        <h2 id="city">London</h2>
+        <p id="temperature" >Loading..</p>
+        <div class="datetime">
+            <h1 class="time"></h1>
+            <br>
+            <p id="date">Loading</p>
+        </div>
+        
+        <script>
+            const apiKey = '42af30165f9f4d92bce181250242209' ;
+            const city   = 'London' ; 
+
+                  // Fetch weather data from WeatherAPI
+        function getWeather() {
+            fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=no`)
+            .then(response => response.json())
+            .then(data => {
+                const temp = data.current.temp_c; // Temperature in Celsius
+                const cityName = data.location.name;
+                const date = data.location.localtime;
+
+                document.getElementById('city').textContent = `${cityName}`;
+                document.getElementById('temperature').textContent = `${temp}°C`;
+                document.getElementById('date').textContent = `${date}`;
+            })
+            .catch(error => {
+                console.log('Error fetching weather data:', error);
+            });
+        }
+        getWeather();
+
+        </script>
+
+    </div>
+
+</body>
+</html>
